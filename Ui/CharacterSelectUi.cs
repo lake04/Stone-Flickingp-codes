@@ -145,8 +145,8 @@ public class CharacterSelectUi : NetworkBehaviour
         if (myPlayer != null)
         {
             var stone = myPlayer.GetComponent<Stone>();
-            stone.RPC_SetReady(!stone.IsReady);
-            stone.CheckAllPlayersReady();
+            //stone.RPC_SetReady(!stone.IsReady);
+            //stone.CheckAllPlayersReady();
         }
     }
 

@@ -3,6 +3,7 @@ using CustomBackEnd.BackendLogin;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static TheBackend.ToolKit.GoogleLogin.Android;
 
 public class LoginModel : ModelBase
 {
@@ -11,7 +12,6 @@ public class LoginModel : ModelBase
 
     public  void Login(string id, string pw, Action<bool, string> onResult)
     {
-
         if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pw))
         {
             onResult?.Invoke(false, "ID 또는 PW를 입력해주세요.");
@@ -87,5 +87,11 @@ public class LoginModel : ModelBase
         {
             onResult?.Invoke(false,"로그인 실패" + bro2.Message);
         }
+    }
+
+    public void GogleLogin()
+    {
+        BackendLogin.Instance.StartGoogleLogin();
+       
     }
 }

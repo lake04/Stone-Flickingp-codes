@@ -20,8 +20,8 @@ public class MainView : ViewBase,IBeginDragHandler, IDragHandler, IEndDragHandle
     public Action<int> OnTabBtnClicked;
     public Action OnSettingButton;
 
-    [HideInInspector] public int targetIndex;
-    [HideInInspector] public float targetPos;
+    [HideInInspector] public int targetIndex = 2;
+    [HideInInspector] public float targetPos = 2;
     [HideInInspector] public bool isDrag;
     private int currentIndex = -1;
 

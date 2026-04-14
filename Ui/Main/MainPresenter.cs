@@ -1,3 +1,5 @@
+using System;
+
 public class MainPresenter : PresenterBase<MainView, MainModel>
 {
     public MainPresenter(MainView view, MainModel model) : base(view, model)
@@ -7,6 +9,7 @@ public class MainPresenter : PresenterBase<MainView, MainModel>
 
     public override void OnInitialize()
     {
+
         View.OnTabBtnClicked += (index) => Model.UpdateTargetByIndex(index);
         View.OnEndDragEvent += (val, delta) => Model.UpdateTargetByScrollValue(val, delta.x);
 

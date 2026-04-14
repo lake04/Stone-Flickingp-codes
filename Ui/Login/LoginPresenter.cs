@@ -1,3 +1,4 @@
+using UnityEditor.Media;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,8 @@ public class LoginPresenter : PresenterBase<LoginView, LoginModel>
         View.OnClickOpenLogin += OpenLogin;
         View.OnClickLogin += OnLogin;
 
+        View.OnClickGoogleLogin += GogleLogin;
+
         View.OnClickOpenSignUp += OpenSign;
         View.OnClickCloseSignUp += HideSign;
         View.OnClickSignUp += OnSign;
@@ -27,6 +30,8 @@ public class LoginPresenter : PresenterBase<LoginView, LoginModel>
     {
         View.OnClickOpenLogin -= OpenLogin;
         View.OnClickLogin -= OnLogin;
+
+        View.OnClickGoogleLogin -= GogleLogin;
 
         View.OnClickOpenSignUp -= OpenSign;
         View.OnClickCloseSignUp -= HideSign;
@@ -59,6 +64,11 @@ public class LoginPresenter : PresenterBase<LoginView, LoginModel>
         });
     }
 
+
+    private void GogleLogin()
+    {
+        Model.GogleLogin();
+    }
     private void OpenSign()
     {
         View.ShowSignup();

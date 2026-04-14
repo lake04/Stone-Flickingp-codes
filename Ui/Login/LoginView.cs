@@ -21,6 +21,7 @@ public class LoginView : ViewBase
 
     [Header("Google Login")]
     [SerializeField] private GameObject googleLogin;
+    [SerializeField] private Button googleLoginButton;
 
     [Header("FindPw")]
     [SerializeField] private GameObject findOb;
@@ -36,6 +37,9 @@ public class LoginView : ViewBase
 
     public Action OnClickOpenLogin;
     public Action OnClickLogin;
+
+    public Action OnClickGoogleLogin;
+
     public Action OnClickOpenSignUp;
     public Action OnClickSignUp;
     public Action OnClickCloseSignUp;
@@ -69,6 +73,8 @@ public class LoginView : ViewBase
     {
         loginSelectButton.onClick.AddListener(() => OnClickLogin?.Invoke());
         signupOpenButton.onClick.AddListener(() => OnClickOpenSignUp?.Invoke());
+
+        googleLoginButton.onClick.AddListener(() => OnClickGoogleLogin?.Invoke());
 
         signupButton.onClick.AddListener(() => OnClickSignUp?.Invoke());
         signupCloseButton.onClick.AddListener(() => OnClickCloseSignUp?.Invoke());

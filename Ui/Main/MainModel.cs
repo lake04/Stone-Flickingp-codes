@@ -7,7 +7,7 @@ public class MainModel : ModelBase
     private const int SIZE = 5;
     private float[] pos = new float[SIZE];
     private float distance;
-    public int TargetIndex { get; private set; }
+    public int TargetIndex { get; private set; } = 2;
     public float TargetPos { get; private set; }
 
     public Action<int, float> OnTabStateChanged;
@@ -19,6 +19,7 @@ public class MainModel : ModelBase
         {
             pos[i] = distance * i;
         }
+        TargetPos = pos[TargetIndex];
     }
 
     public void UpdateTargetByScrollValue(float scrollValue, float deltaX)

@@ -13,7 +13,7 @@ public class MainUIInstaller : MonoBehaviour
 
         _presenter = new MainPresenter(mainView, model);
 
-        model.UpdateTargetByIndex(0);
+        model.UpdateTargetByIndex(2);
     }
 
     private void OnDestroy()

@@ -23,6 +23,10 @@ public class CharacterDetailView : ViewBase
     public Action OnClickClose;
     public Action<float, Vector2> OnEndDragEvent;
 
+    [HideInInspector] public int targetIndex;
+    [HideInInspector] public float targetPos;
+    private int currentIndex = -1;
+
     private CharacterDetailPresenter _presenter;
 
     [SerializeField] PageIndicator pageIndicator;
@@ -62,5 +66,13 @@ public class CharacterDetailView : ViewBase
         UiManager.instance.CloseTopUi();
     }
 
-    
+    public void RenderTabState(int index, float pos)
+    {
+        bool changed = currentIndex != index;
+
+        currentIndex = index;
+        this.targetIndex = index;
+        this.targetPos = pos;
+    }
+
 }
