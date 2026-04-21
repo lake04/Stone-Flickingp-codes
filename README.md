@@ -1,10 +1,6 @@
 <div align="center">
   <h1>🎮 알까팡_Scripts</h1>
   <p><b>뒤끝 서버 시스템 및 MVP 기반 UI 아키텍처 구현 저장소</b></p>
-  
-  <img src="https://img.shields.io/badge/Unity-2021.3+-black?logo=unity" alt="Unity">
-  <img src="https://img.shields.io/badge/C%23-%23239120?logo=c-sharp&logoColor=white" alt="C#">
-  <img src="https://img.shields.io/badge/The%20Backend-Server-blue" alt="뒤끝서버">
 </div>
 
 <br/>
@@ -23,7 +19,7 @@
     <b>서버 연동 및 유저 데이터 관리</b> (<code>The Backend</code> 활용)
     <ul>
       <li>로그인 전반 로직 처리 및 유저 세션 유지 관리</li>
-      <li>뒤끝 매칭 서버를 활용한 실시간 대전 매칭 및 네트워크 동기화 시스템 구축</li>
+      <li>뒤끝 매칭 서버를 활용한 대전 매칭</li>
     </ul>
   </li>
   <br/>
@@ -57,7 +53,7 @@
     <tr>
       <td><b>Match / Network</b></td>
       <td><code>BackEndMatchManager.cs</code><br/><code>NetworkManager.cs</code></td>
-      <td>서버 대기열 매칭 프로세스 및 인게임 동기화 로직</td>
+      <td>서버 대기열 매칭 프로세스</td>
     </tr>
     <tr>
       <td><b>UI System (MVP)</b></td>
@@ -68,10 +64,3 @@
 </table>
 
 <hr/>
-
-<h2>🛠 기술 스택</h2>
-<ul>
-  <li><b>Engine:</b> Unity</li>
-  <li><b>Networking & Backend:</b> The Backend (뒤끝)</li>
-  <li><b>Design Pattern:</b> MVP (Model-View-Presenter)</li>
-</ul>
