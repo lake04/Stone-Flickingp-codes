@@ -14,21 +14,18 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     public static NetworkRunner runnerInstance;
     public static NetworkManager Instance;
 
-    public Text nickName;
-    public TMP_InputField roomNameInput;
-
     public string roomNamePrefix = "Room_";
-    [SerializeField] private Button randomMatchButton;
-    [SerializeField] private Button joinButton;
-    [SerializeField] private Button createButton;
-    [SerializeField] private String nextScene;
 
     public SessionListUiHandler sessionListHandler;
 
-    [SerializeField] private NetworkObject playerPrefab;
+    private StoneLauncher _myLocalLauncher;
+
+    [SerializeField] private NetworkObject stonePrefab;
+    [SerializeField] private GameRuleManager ruleManager;
+    [SerializeField] private TeamManager teamManager;
+
     private NetworkSceneManagerDefault sceneManager;
-    [Networked] public int Team { get; set; }
-    [Networked] public string Nickname { get; set; }
+ 
 
     private void Awake()
     {
@@ -134,22 +131,41 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         }
         if (runner.IsServer)
         {
-            Debug.Log($"플레이어 접속: {player.PlayerId}");
-            NetworkObject playerObj = runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity, player);
+            int teamID = teamManager.AssignTeam(player);
+            Vector3 spawnPos = ruleManager.GetRespawnPosition(teamID);
+
+            NetworkObject playerObj = runner.Spawn(stonePrefab, spawnPos, Quaternion.identity, player);
             GameManager.instance.stone = playerObj.gameObject;
             DontDestroyOnLoad(playerObj);
 
-            runner.SetPlayerObject(player, playerObj);
-
-            if (runner.SessionInfo.PlayerCount == runner.SessionInfo.MaxPlayers)
+            if (playerObj != null && playerObj.TryGetComponent(out Stone stone))
             {
-                runnerInstance.LoadScene("Lobby");
+                runner.SetPlayerObject(player, playerObj);
+                stone.SetTeam(teamID);
+                stone.SetReady(true);
+
+                Debug.Log($"[AutoConnect] SetReady 완료 / player:{player} / ready:{stone.IsReady}");
+
+                ruleManager.RegisterParticipant(stone);
+
+                Debug.Log($"[AutoConnect] 스폰 완료 / player:{player} / team:{teamID}");
             }
         }
     }
 
+    public void RegisterLocalStone(StoneLauncher launcher)
+    {
+        _myLocalLauncher = launcher;
+        Debug.Log("[AutoConnect] 로컬 스톤 등록 완료");
+    }
+
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
+        if (!runner.IsServer)
+            return;
+
+        if (teamManager != null)
+            teamManager.RemovePlayer(player);
     }
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
@@ -178,6 +194,8 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
+        if (_myLocalLauncher != null)
+            input.Set(_myLocalLauncher.GetLocalInput());
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
